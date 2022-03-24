@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+}
+
+html,body{
+    height: 100%;
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #999;
+}
+
+/* Parrafos: añadir margen superior e inferior */
+p {
+    margin: .5em 0 .5em 0;
+}
+
+/* Cabecera con posicion fija: no se mueve con el scroll */
+header{
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #a493c0;
+    padding: 10px;
+}
+
+nav a:visited,
+nav a:link {
+    color: #fff;
+    text-decoration: none; /* links sin subrayado */
+}
