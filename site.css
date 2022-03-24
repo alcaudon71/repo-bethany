@@ -32,3 +32,85 @@ nav a:link {
     color: #fff;
     text-decoration: none; /* links sin subrayado */
 }
+
+nav > ul {
+    display: inline;
+    padding: 0;
+}
+
+nav > ul > li {
+    display: inline-block;
+    list-style: none;
+    margin: 0 5px 0 5px;
+}
+
+main{
+    display: block;
+    background-image: url("images/background.png");
+    padding-top: 3em;
+    padding-bottom: 3em;
+    min-height: 85%;
+}
+
+footer{
+    padding: 15px;
+}
+
+/* padding en formato 'em' deja espacio en funcion del tamaño de la fuente empleada */
+aside, article{
+    padding: 2em;
+}
+
+aside{
+    text-align: center;
+}
+
+article{
+    width: 75%;
+}
+
+.columns{
+    display: flex;
+}
+
+/* Formato aplicado solo para pantallas con tamaño minimo de 768px */
+@media only screen and (min-width: 768px) {
+    main {
+        display: flex;
+    }
+    aside{
+        margin-left: 2%;
+    }
+    .columns-desktop{
+        display: flex;
+    }
+}
+
+/* Tartas */
+.pie{
+    width: 200px;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+    border: solid 1px #ccc;
+}
+
+.pie img {
+    width: 100%;
+}
+
+.pie .title{
+    font-weight: bold;    
+}
+
+.pie .columns{
+    width: 100%;
+}
+
+.pie .price{
+    text-align: right;
+}
+
+.pie .columns div{
+    width: 50%;
+}
