@@ -80,4 +80,44 @@
         </nav>
     </footer>
 </body>
+
+<script>
+    // Listener del evento de Pagina Cargada 
+    window.addEventListener("DOMContentLoaded", function(e) {
+        // Recuperamos los botones de pedido de la pagina
+        const orderButtons = document.querySelectorAll("button[data-order]");
+
+        // Recorremos los botones de Peticion de tarta de la pagina
+        orderButtons.forEach(function(button) {
+            // Listener Click de cada uno de los botones
+            button.addEventListener("click", function(e) {
+                // Recuperamos el elemento del boton pulsado en el evento
+                const button = e.currentTarget;
+
+                // Recuperamos el elemento padre del boton pulsado
+                const container = button.parentNode;
+
+                // Creamos objeto con los datos del elemento seleccionado
+                const order = {
+                    id: button.getAttribute("data-order"),
+                    title: container.querySelector(".title").innerText,
+                    price: container.querySelector(".price").innerText,
+                    desc: container.querySelector(".desc").innerText
+                };
+
+                // Pasamos el objeto a String (Serialize) y lo almacenamos en localStorage
+                localStorage.setItem("order", JSON.stringify(order));
+
+                // Construimos URL destino a partir de la URL actual
+                const url = window.location.href.replace("pies.html", "order.html");
+
+                // Abrimos ventana con la URL destino 
+                window.location.href = url;
+
+            });
+        });
+
+    })
+</script>
+
 </html>
