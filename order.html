@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="site.css" type="text/css" />
     <title>Bethanys Pie Shop</title>
     <style>
+        @media only screen and (min-width: 768px){
+            article{
+                width: 350px;
+            }
+        }
         .input-group{
             margin-bottom: 20px;
         }
@@ -53,7 +58,19 @@
         <article>
             <h1>Order</h1>
 
+            <div class="pie">
+                <img src="">
+                <div class="columns">
+                    <div class="title"></div>
+                    <div class="price"></div>
+                </div>
+                <p class="desc"></p>
+            </div>
+
             <form action="http://localhost:5500/api/post" method="POST">
+                <input type="hidden" id="pie-order" name="pie-order">
+                <input type="hidden" id="location" name="location">
+
                 <div class="input-group">
                     <div><label for="first-name">First Name</label></div>
                     <div><input type="text" name="first-name" id="first-name"></div>
@@ -105,4 +122,69 @@
         </nav>
     </footer>
 </body>
+
+<script>
+    window.addEventListener("DOMContentLoaded", function(e) {
+
+        // Recuperamos el elemento oculto "location" de la pagina
+        let locationBox = document.querySelector("#location");
+
+        let location = {
+            latitude: "unknown",
+            longitude: "unknown"
+        }
+
+        // Solicitamos la geolocalizacion al cliente
+        window.navigator.geolocation.getCurrentPosition(
+            // Si el cliente permite la geolocalizacion
+            function(position){
+                // Recuperamos la localizacion del cliente
+                location = {
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                }
+                // Serializamos la localizacion y la cargamos en el elemento "location" de la pagina
+                locationBox.value = JSON.stringify(location);
+            },
+            // Si el cliente deniega la geolocalizacion
+            function(error){
+                // Serializamos la localizacion "unknown" y la cargamos en el elemento "location"
+                locationBox.value = JSON.stringify(location);
+            }
+
+        );
+
+        // Recuperamos el pedido realizado por el cliente
+        const order = localStorage.getItem("order");
+
+        // Si el contenido de la orden no esta vacio
+        if (order) {
+            // DeSerializamos el pedido: pasamos de String a objeto Pedido
+            const pieOrder = JSON.parse(order);
+
+            // Recuperamos el elemento oculto "pie-order" de la pagina
+            const orderInput = document.querySelector("#pie-order");
+
+            // Cargamos el pedido Serializado en el elemento "pie-order"
+            orderInput.value = order;
+
+            // Recuperamos el elemento "pie" de la pagina
+            const pie = document.querySelector(".pie");
+
+            const title = pie.querySelector(".title");
+            const price = pie.querySelector(".price");
+            const desc = pie.querySelector(".desc");
+            const img = pie.querySelector("img");
+
+            // Actualizamos el elemento "pie" con el contenido del Pedido
+            title.innerText = pieOrder.title;
+            price.innerText = pieOrder.price;
+            desc.innerText = pieOrder.desc;
+            img.setAttribute("src", `images/${pieOrder.id}.png`);
+            img.setAttribute("alt", pieOrder.title);
+
+        }
+    });
+</script>
+
 </html>
